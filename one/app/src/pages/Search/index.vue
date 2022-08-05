@@ -14,6 +14,10 @@
             <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}<i @click="remove">×</i></li>
             <li class="with-x" v-if="searchParams.keyword">{{ searchParams.keyword }}<i @click="removeWord">×</i></li>
             <li class="with-x" v-if="searchParams.trademark">{{ searchParams.trademark.split(':')[1] }}<i @click="hander">×</i></li>
+            <li class="with-x" v-for="(attrValue, index) in searchParams.props" :key="index">
+              {{ attrValue.split(':')[1] }}
+              <i @click="removeAttr(index)"> × </i>
+            </li>
           </ul>
         </div>
 
@@ -183,6 +187,10 @@ export default {
     },
     hander() {
       this.searchParams.trademark = '';
+      this.getData();
+    },
+    removeAttr(index) {
+      this.searchParams.props.splice(index, 1);
       this.getData();
     },
   },
