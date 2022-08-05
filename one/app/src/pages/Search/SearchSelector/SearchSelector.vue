@@ -4,7 +4,7 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="c1 in trademarkList" :key="c1.tmId" @click= "trademarkHandler(c1)" >{{ c1.tmName }}</li>
+          <li v-for="c1 in trademarkList" :key="c1.tmId" @click="trademarkHandler(c1)">{{ c1.tmName }}</li>
         </ul>
       </div>
       <div class="ext">
