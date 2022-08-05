@@ -17,7 +17,6 @@ src：程序员源代码文件夹
         babel.config.js:babel配置文件
         package.json：看到项目描述、项目依赖、项目运行指令
         README.md:项目说明文件
-  
 
 3)脚手架下载下来的项目稍微配置一下
 3.1:浏览器自动打开
@@ -27,8 +26,6 @@ src：程序员源代码文件夹
           "build": "vue-cli-service build",
           "lint": "vue-cli-service lint"
         },
-
-
 
 3.2关闭eslint校验工具
 创建vue.config.js文件：需要对外暴露
@@ -53,16 +50,10 @@ module.exports = {
     ]
 }
 
-
 4:项目上传GIT
 微信小程序实战课的时候，会带着大家玩耍的
 注意:前面基础课程当中，创建分支、处理冲突等等
 https://gitee.com/jch1011/shangpinhui_0607.git
-
-
-
-
-
 
 5）路由的配置
 vue-router
@@ -75,11 +66,9 @@ app.get("/0607",(res,req)=>{
    res.send('我是祖国的老花骨朵');
 });
 
-
 前端路由:
 K即为URL（网络资源定位符）
 V即为相应的路由组件
-
 
 5.1路由的一个分析
 确定项目结构顺序:上中下 -----只有中间部分的V在发生变化，中间部分应该使用的是路由组件
@@ -88,14 +77,10 @@ V即为相应的路由组件
 路由组件:Home、Search、Login（没有底部的Footer组件，带有二维码的）、Register（没有底部的Footer组件，带二维码的）
 
 5.2安装路由
- cnpm install --save vue-router 
+ cnpm install --save vue-router
 --save:可以让你安装的依赖，在package.json文件当中进行记录
 5.3创建路由组件【一般放在views|pages文件夹】
 5.4配置路由，配置完四个路由组件
-
-
-
-
 
 6)创建非路由组件（2个：Header、Footer）
 
@@ -117,19 +102,10 @@ V即为相应的路由组件
 
 2:需要在style标签的身上加上lang="less",不添加样式不生效
 
-
-
-
-
-
 7)路由的跳转
 路由的跳转就两种形式：声明式导航（router-link：务必要有to属性）
                     编程式导航push||replace
 编程式导航更好用：因为可以书写自己的业务逻辑
-
-
-
-
 
 面试题：v-show与v-if区别?
 v-show:通过样式display控制
@@ -141,40 +117,13 @@ v-if：通过元素上树与下树进行操作
 Footer组件显示|隐藏，选择v-show|v-if
 路由元信息
 
-
-
 9）路由传参
 params参数：路由需要占位，程序就崩了，属于URL当中一部分
 query参数：路由不需要占位，写法类似于ajax当中query参数
 路由传递参数先关面试题
      1:路由传递参数（对象写法）path是否可以结合params参数一起使用?
      不可以：不能这样书写，程序会崩掉
-     2:如何指定params参数可传可不传? 
+     2:如何指定params参数可传可不传?
      3:params参数可以传递也可以不传递，但是如果传递是空串，如何解决？
      4:如果指定name与params配置, 但params中数据是一个"", 无法跳转，路径会出问题
      5: 路由组件能不能传递props数据?
-     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
-    
-
-
