@@ -29,23 +29,11 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{ active: searchParams.order.indexOf(1) != -1 }">
+                  <a>综合<span v-show="searchParams.order.indexOf(1) != -1" class="iconfont" :class="{ 'icon-UP':isAsc, 'icon-DOWN': isDesc }"></span></a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{ active: searchParams.order.indexOf(2) != -1 }">
+                  <a>价格 <span v-show="searchParams.order.indexOf(2) != -1" class="iconfont" :class="{ 'icon-UP':isAsc, 'icon-DOWN': isDesc }"></span></a>
                 </li>
               </ul>
             </div>
@@ -128,7 +116,7 @@ export default {
         category3Id: '',
         categoryName: '',
         keyword: '',
-        order: '',
+        order: '1:asc',
         pageNo: 1,
         pageSize: 3,
         props: [],
@@ -196,6 +184,12 @@ export default {
   },
   computed: {
     ...mapGetters(['goodsList']),
+    isAsc() {
+      return this.searchParams.order.indexOf('asc') != -1;
+    },
+    isDesc() {
+      return this.searchParams.order.indexOf('desc') != -1;
+    },
   },
 };
 </script>

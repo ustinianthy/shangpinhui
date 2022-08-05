@@ -167,7 +167,7 @@ export default {
     changeOrder(flag) {
       let originOrder = this.searchParams.order;
       let originFlag = originOrder.split(':')[0];
-   jweiowehfjweiolet originSort = originOrder.split(':')[1];
+      let originSort = originOrder.split(':')[1];
       let newOrder = '';
 
       if (flag == originFlag) {
