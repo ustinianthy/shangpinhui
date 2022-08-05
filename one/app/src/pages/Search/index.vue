@@ -18,7 +18,7 @@
         </div>
 
         <!--selector-->
-        <SearchSelector @traderMark="traderMark" />
+        <SearchSelector @traderMark="traderMark" @attrIn="attrIn" />
 
         <!--details-->
         <div class="details clearfix">
@@ -171,6 +171,14 @@ export default {
     },
     traderMark(trader) {
       this.searchParams.trademark = `${trader.tmId}:${trader.tmName}`;
+      this.getData();
+    },
+    // 拿到品牌信息数据并发请求
+    attrIn(m1, m2) {
+      let prop = `${m1.attrId}:${m2}:${m1.attrName}`;
+      if (this.searchParams.props.indexOf(prop) == -1) {
+        this.searchParams.props.push(prop);
+      }
       this.getData();
     },
     hander() {

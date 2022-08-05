@@ -16,8 +16,7 @@
       <div class="fl key">{{ m1.attrName }}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(m2, index) in m1.attrValueList" :key="index">
-            
+          <li v-for="(m2, index) in m1.attrValueList" :key="index" @click="arrtList(m1, m2)">
             <a>{{ m2 }}</a>
           </li>
         </ul>
@@ -37,6 +36,9 @@ export default {
   methods: {
     trademarkHandler(c1) {
       this.$emit('traderMark', c1);
+    },
+    arrtList(m1,m2) {
+      this.$emit('attrIn', m1,m2)
     },
   },
 };
