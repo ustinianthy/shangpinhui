@@ -17,6 +17,7 @@
       <div class="fl value">
         <ul class="type-list">
           <li v-for="(m2, index) in m1.attrValueList" :key="index">
+            
             <a>{{ m2 }}</a>
           </li>
         </ul>
