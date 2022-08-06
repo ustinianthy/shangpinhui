@@ -11,9 +11,13 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}<i @click="remove">×</i></li>
+            <li class="with-x" v-if="searchParams.categoryName">
+              {{ searchParams.categoryName }}<i @click="remove">×</i>
+            </li>
             <li class="with-x" v-if="searchParams.keyword">{{ searchParams.keyword }}<i @click="removeWord">×</i></li>
-            <li class="with-x" v-if="searchParams.trademark">{{ searchParams.trademark.split(':')[1] }}<i @click="hander">×</i></li>
+            <li class="with-x" v-if="searchParams.trademark">
+              {{ searchParams.trademark.split(':')[1] }}<i @click="hander">×</i>
+            </li>
             <li class="with-x" v-for="(attrValue, index) in searchParams.props" :key="index">
               {{ attrValue.split(':')[1] }}
               <i @click="removeAttr(index)"> × </i>
@@ -29,11 +33,25 @@
           <div class="sui-navbar">
             <div class="navbar-inner filter">
               <ul class="sui-nav">
-                <li :class="{ active: searchParams.order.indexOf(1) != -1 }">
-                  <a>综合<span v-show="searchParams.order.indexOf(1) != -1" class="iconfont" :class="{ 'icon-UP':isAsc, 'icon-DOWN': isDesc }"></span></a>
+                <li :class="{ active: searchParams.order.indexOf(1) != -1 }" @click="changeAsc">
+                  <a
+                    >综合<span
+                      v-show="searchParams.order.indexOf(1) != -1"
+                      class="iconfont"
+                      :class="{ 'icon-UP': isAsc, 'icon-DOWN': isDesc }"
+                    ></span
+                  ></a>
                 </li>
-                <li :class="{ active: searchParams.order.indexOf(2) != -1 }">
-                  <a>价格 <span v-show="searchParams.order.indexOf(2) != -1" class="iconfont" :class="{ 'icon-UP':isAsc, 'icon-DOWN': isDesc }"></span></a>
+                <li :class="{ active: searchParams.order.indexOf(2) != -1 }" @click="changeDesc">
+                  <a
+                    >价格
+                    <span
+                      v-show="searchParams.order.indexOf(2) != -1"
+                      class="iconfont"
+                      :class="{ 'icon-UP': isAsc, 'icon-DOWN': isDesc }"
+                    >
+                    </span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -52,7 +70,12 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a target="_blank" href="item.html" title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】">{{ c1.title }}</a>
+                    <a
+                      target="_blank"
+                      href="item.html"
+                      title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
+                      >{{ c1.title }}</a
+                    >
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
@@ -116,7 +139,7 @@ export default {
         category3Id: '',
         categoryName: '',
         keyword: '',
-        order: '1:asc',
+        order: '2:asc',
         pageNo: 1,
         pageSize: 3,
         props: [],
@@ -180,6 +203,36 @@ export default {
     removeAttr(index) {
       this.searchParams.props.splice(index, 1);
       this.getData();
+    },
+    changeAsc() {
+      let a = 'asc';
+      let b = 'desc';
+      let c = 1;
+      let d = 2;
+      if (this.searchParams.order.indexOf(1) != -1) {
+        this.searchParams.order.indexOf('asc') != -1
+          ? (this.searchParams.order = this.searchParams.order.replace(a, b))
+          : (this.searchParams.order = this.searchParams.order.replace(b, a));
+        this.getData();
+      } else {
+        this.searchParams.order = this.searchParams.order.replace(d, c);
+        this.getData();
+      }
+    },
+    changeDesc() {
+      let b = 'asc';
+      let a = 'desc';
+      let d = 1;
+      let c = 2;
+      if (this.searchParams.order.indexOf(2) != -1) {
+        this.searchParams.order.indexOf('desc') != -1
+          ? (this.searchParams.order = this.searchParams.order.replace(a, b))
+          : (this.searchParams.order = this.searchParams.order.replace(b, a));
+        this.getData();
+      } else {
+        this.searchParams.order = this.searchParams.order.replace(d, c);
+        this.getData();
+      }
     },
   },
   computed: {
