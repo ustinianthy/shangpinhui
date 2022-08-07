@@ -61,7 +61,10 @@
               <li class="yui3-u-1-5" v-for="c1 in goodsList" :key="c1.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img :src="c1.defaultImg" /></a>
+                    <router-link :to="`/detail/${c1.id}`">
+                      <img :src="c1.defaultImg" />
+                      <div>{{c1.id}}</div>
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -92,17 +95,18 @@
       </div>
     </div>
     <Pagination
-      :pageNo="28"
-      :pageSize="3"
-      :total="91"
+      :pageNo="searchParams.pageNo"
+      :pageSize="searchParams.pageSize"
+      :total="total"
       :continues="5"
+      @getPageNo="getPageNo"
     />
   </div>
 </template>
 
 <script>
 import SearchSelector from './SearchSelector/SearchSelector';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 export default {
   name: 'Search',
   components: {
@@ -211,9 +215,16 @@ export default {
         this.getData();
       }
     },
+    getPageNo(pageNo) {
+      this.searchParams.pageNo = pageNo;
+      this.getData();
+    },
   },
   computed: {
     ...mapGetters(['goodsList']),
+    ...mapState({
+      total: (state) => state.search.searchList.total,
+    }),
     isAsc() {
       return this.searchParams.order.indexOf('asc') != -1;
     },

@@ -11,8 +11,7 @@ Vue.component(TypeNav.name, TypeNav);
 Vue.component(Carousel.name, Carousel);
 Vue.component(Pagination.name, Pagination)
 Vue.config.productionTip = false;
-  console.dir(Vue);
- let a = new Vue({
+new Vue({
   beforeCreate() {
     Vue.prototype.$bus = this;
   },
@@ -20,4 +19,3 @@ Vue.config.productionTip = false;
   store,
   render: (h) => h(App),
 }).$mount('#app');
-  console.log(a);

@@ -1,14 +1,16 @@
 <template>
   <div class="pagination">
-    <button>上一页</button>
-    <button v-if="starNum.star > 1">1</button>
+    <button :disabled="pageNo == 1" @click="$emit('getPageNo', pageNo - 1)">上一页</button>
+    <button v-if="starNum.star > 1" @click="$emit('getPageNo', 1)" :class="{ act: pageNo == 1 }">1</button>
     <button v-if="starNum.star > 2">···</button>
 
-    <button v-for="(c1, index) in starNum.end" :key="index" v-show="c1 >= starNum.star">{{ c1 }}</button>
+    <button v-for="(c1, index) in starNum.end" :key="index" v-show="c1 >= starNum.star" @click="$emit('getPageNo', c1)" :class="{ act: pageNo == c1 }">
+      {{ c1 }}
+    </button>
 
     <button v-if="starNum.end < totalPage - 1">···</button>
-    <button v-if="starNum.end < totalPage">{{ totalPage }}</button>
-    <button>下一页</button>
+    <button v-if="starNum.end < totalPage" @click="$emit('getPageNo', totalPage - 1)">{{ totalPage }}</button>
+    <button @click="$emit('getPageNo', pageNo + 1)">下一页</button>
 
     <button style="margin-left: 30px">共 {{ total }} 条</button>
   </div>
@@ -46,6 +48,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.act {
+  background-color: #409eff;
+}
 .pagination {
   text-align: center;
   button {
@@ -70,8 +75,7 @@ export default {
       color: #c0c4cc;
       cursor: not-allowed;
     }
-
-    &.active {
+    &.act {
       cursor: not-allowed;
       background-color: #409eff;
       color: #fff;
