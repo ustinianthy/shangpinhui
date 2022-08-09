@@ -63,7 +63,7 @@
                   <div class="p-img">
                     <router-link :to="`/detail/${c1.id}`">
                       <img :src="c1.defaultImg" />
-                      <div>{{c1.id}}</div>
+                      <div>{{ c1.id }}</div>
                     </router-link>
                   </div>
                   <div class="price">
