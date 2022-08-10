@@ -67,7 +67,13 @@
               <div class="choosed"></div>
               <dl v-for="c1 in spuSaleAttrList" :key="c1.id">
                 <dt class="title">{{ c1.saleAttrName }}</dt>
-                <dd changepirce="0" class="active" v-for="m1 in c1.spuSaleAttrValueList" :key="m1.id">
+                <dd
+                  changepirce="0"
+                  :class="{ active: m1.isChecked == 1}"
+                  v-for="m1 in c1.spuSaleAttrValueList"
+                  :key="m1.id"
+                  @click="changeActive(m1, c1.spuSaleAttrValueList)"
+                >
                   {{ m1.saleAttrValueName }}
                 </dd>
               </dl>
@@ -330,7 +336,16 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getGoodsList', this.$route.params.skuid);
-    console.log(this.skuInfo.skuImageList);
+  },
+  methods: {
+    changeActive(saleAttrValue, arr) {
+      //遍历全部售卖属性值isChecked为零没有高亮了
+      arr.forEach((item) => {
+        item.isChecked = 0;
+      });
+      //点击的那个售卖属性值变为1
+      saleAttrValue.isChecked = 1;
+    },
   },
   computed: {
     ...mapGetters(['categoryView', 'skuInfo', 'spuSaleAttrList']),

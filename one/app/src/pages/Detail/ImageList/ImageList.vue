@@ -1,8 +1,8 @@
 <template>
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide" v-for="c1 in skuImageList" :key="c1.id">
-        <img :src="c1.imgUrl" />
+      <div class="swiper-slide" v-for="(c1,index) in skuImageList" :key="c1.id">
+        <img :src="c1.imgUrl" :class="{ active: currentIndex == index }" @click = changeIndex(index) />
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -14,8 +14,32 @@
 import Swiper from 'swiper';
 export default {
   name: 'ImageList',
+  data() {
+    return {
+      currentIndex: 0,
+    };
+  },
   props: ['skuImageList'],
-  mounted() {
+  mounted() {},
+  methods: {
+    changeIndex(index){
+      this.currentIndex = index
+      this.$bus.$emit('getIndex', index)
+    },
+  },
+  watch: {
+    skuImageList(newValue, oldValue) {
+      this.$nextTick(function () {
+        new Swiper('.swiper-container', {
+          slidesPerView: 3,
+          slidesPerGroup: 1,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      });
+    },
   },
 };
 </script>
@@ -41,11 +65,6 @@ export default {
       display: block;
 
       &.active {
-        border: 2px solid #f60;
-        padding: 1px;
-      }
-
-      &:hover {
         border: 2px solid #f60;
         padding: 1px;
       }
