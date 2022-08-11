@@ -1,7 +1,7 @@
 <template>
   <div class="detail">
     <!-- 商品分类导航 -->
-    <TypeNav />
+    <!-- <TypeNav /> -->
 
     <!-- 主要内容区域 -->
     <section class="con">

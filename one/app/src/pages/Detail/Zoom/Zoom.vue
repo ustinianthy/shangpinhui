@@ -1,11 +1,11 @@
 <template>
   <div class="spec-preview">
     <img :src="imgObj.imgUrl" />
-    <div class="event"></div>
-    <div class="big">
-      <img :src="imgObj.imgUrl" />
+    <div class="event" @mousemove="handler"></div>
+    <div class="big" >
+      <img :src="imgObj.imgUrl" ref="big" />
     </div>
-    <div class="mask"></div>
+    <div class="mask" ref="mask"></div>
   </div>
 </template>
 
@@ -18,10 +18,27 @@ export default {
       dataIndex: 0,
     };
   },
+  methods: {
+      handler(event) {
+      let mask = this.$refs.mask;
+      let big = this.$refs.big;
+      let left = event.offsetX - mask.offsetWidth/2;
+      let top = event.offsetY - mask.offsetHeight/2;
+      if(left <= 0) {left = 0}
+      if(left >= mask.offsetWidth) {left = mask.offsetWidth}
+      if(top >= mask.offsetHeight) {top = mask.offsetHeight}
+      if(top <= 0) {top = 0}
+
+      mask.style.left = left + 'px';
+      mask.style.top = top + 'px'
+      big.style.left = -2 * left +'px';
+      big.style.top = -2 * top + 'px';
+      },
+  },
   mounted() {
-    this.$bus.$on('getIndex',(index)=>{
-      this.dataIndex = index
-    })
+    this.$bus.$on('getIndex', (index) => {
+      this.dataIndex = index;
+    });
   },
   computed: {
     imgObj() {
@@ -37,7 +54,6 @@ export default {
   width: 400px;
   height: 400px;
   border: 1px solid #ccc;
-
   img {
     width: 100%;
     height: 100%;
