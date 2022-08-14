@@ -69,7 +69,7 @@
                 <dt class="title">{{ c1.saleAttrName }}</dt>
                 <dd
                   changepirce="0"
-                  :class="{ active: m1.isChecked == 1}"
+                  :class="{ active: m1.isChecked == 1 }"
                   v-for="m1 in c1.spuSaleAttrValueList"
                   :key="m1.id"
                   @click="changeActive(m1, c1.spuSaleAttrValueList)"
@@ -80,12 +80,12 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input autocomplete="off" class="itxt" v-model="num" @change="changeNum" />
+                <a href="javascript:" class="plus" @click="num++">+</a>
+                <a href="javascript:" class="mins" @click="num <= 1 ? (num = 1) : num--">-</a>
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="goLogin">加入购物车</a>
               </div>
             </div>
           </div>
@@ -330,6 +330,11 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'Detail',
+  data() {
+    return {
+      num: '1',
+    };
+  },
   components: {
     ImageList,
     Zoom,
@@ -338,6 +343,14 @@ export default {
     this.$store.dispatch('getGoodsList', this.$route.params.skuid);
   },
   methods: {
+    changeNum(e) {
+      let n = e.target.value - 0;
+      if (isNaN(n) || n < 1) {
+        this.num = 1;
+      } else {
+        this.num = parseInt(n);
+      }
+    },
     changeActive(saleAttrValue, arr) {
       //遍历全部售卖属性值isChecked为零没有高亮了
       arr.forEach((item) => {
@@ -345,6 +358,14 @@ export default {
       });
       //点击的那个售卖属性值变为1
       saleAttrValue.isChecked = 1;
+    },
+    goLogin() {
+      this.$store.dispatch('getLogin', {
+      skuId: this.$route.params.skuid,
+      skuNum: this.num
+      });
+      console.log(this.$route.params.skuid);
+      console.log(this.Num);
     },
   },
   computed: {

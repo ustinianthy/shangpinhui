@@ -1,9 +1,17 @@
-import { reqGoodsList } from '@/api';
+import { reqGoodsList, reqLogin } from '@/api';
 const actions = {
   async getGoodsList({ commit }, skuId) {
     let result = await reqGoodsList(skuId);
     if (result.code == 200) {
       commit('GETGOODSLIST', result.data);
+    }
+  },
+  async getLogin({ commit }, { skuId, skuNum }) {
+    let result = await reqLogin(skuId, skuNum);
+    if (result.code == 200) {
+      return 'ok';
+    } else {
+      return Promise.reject(new Error('faile'));
     }
   },
 };
