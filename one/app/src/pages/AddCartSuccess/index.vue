@@ -9,7 +9,7 @@
           </div>
           <div class="right-info">
             <p class="title">{{ skuInfo.skuName }}</p>
-            <p class="attr">{{ skuInfo.skuDesc }}数量：{{ this.$route.query.num }}</p>
+            <p class="attr">{{ skuInfo.skuDesc }}数量：{{ $route.query.num }}</p>
           </div>
         </div>
         <div class="right-gocart">

@@ -1,4 +1,5 @@
 import { reqGoodsList, reqLogin } from '@/api';
+import { getUUID } from '@/utils/uuid_token';
 const actions = {
   async getGoodsList({ commit }, skuId) {
     let result = await reqGoodsList(skuId);
@@ -22,6 +23,7 @@ const mutations = {
 };
 const state = {
   goodsList: {},
+  uuid_token: getUUID(),
 };
 const getters = {
   categoryView(state) {

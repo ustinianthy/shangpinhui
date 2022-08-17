@@ -5,7 +5,13 @@
         <h2 class="all" @mouseenter="seeList">全部商品分类</h2>
         <div class="sort" v-show="show">
           <div class="all-sort-list2" @click="goSearch">
-            <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId" @mouseenter="changeColor(index)" :class="{ cul: index == currentIndex }">
+            <div
+              class="item"
+              v-for="(c1, index) in categoryList"
+              :key="c1.categoryId"
+              @mouseenter="changeColor(index)"
+              :class="{ cul: index == currentIndex }"
+            >
               <h3>
                 <a :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{ c1.categoryName }} </a>
               </h3>
@@ -13,11 +19,15 @@
                 <div class="subitem">
                   <dl class="fore" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                     <dt>
-                      <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{ c2.categoryName }} </a>
+                      <a :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId"
+                        >{{ c2.categoryName }}
+                      </a>
                     </dt>
                     <dd>
                       <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                        <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{ c3.categoryName }} </a>
+                        <a :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId"
+                          >{{ c3.categoryName }}
+                        </a>
                       </em>
                     </dd>
                   </dl>

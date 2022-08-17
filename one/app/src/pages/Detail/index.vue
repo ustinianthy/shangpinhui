@@ -362,7 +362,7 @@ export default {
     async goLogin() {
       try {
         await this.$store.dispatch('getLogin', { skuId: this.$route.params.skuid, skuNum: this.num });
-        this.$router.push({ name: 'AddCartSuccess', query: { num: this.num } });
+        this.$router.push({ name: 'addcartsuccess', query: { num: this.num } });
         sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo));
       } catch (error) {
         console.log(error.message);
