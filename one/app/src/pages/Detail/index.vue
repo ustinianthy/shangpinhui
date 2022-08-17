@@ -359,13 +359,14 @@ export default {
       //点击的那个售卖属性值变为1
       saleAttrValue.isChecked = 1;
     },
-    goLogin() {
-      this.$store.dispatch('getLogin', {
-      skuId: this.$route.params.skuid,
-      skuNum: this.num
-      });
-      console.log(this.$route.params.skuid);
-      console.log(this.Num);
+    async goLogin() {
+      try {
+        await this.$store.dispatch('getLogin', { skuId: this.$route.params.skuid, skuNum: this.num });
+        this.$router.push({ name: 'AddCartSuccess', query: { num: this.num } });
+        sessionStorage.setItem('SKUINFO', JSON.stringify(this.skuInfo));
+      } catch (error) {
+        console.log(error.message);
+      }
     },
   },
   computed: {

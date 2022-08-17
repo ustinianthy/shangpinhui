@@ -2,13 +2,28 @@ import Home from '@/pages/Home';
 import Search from '@/pages/Search';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
-import Detail from '../pages/Detail'
+import Detail from '../pages/Detail';
+import AddCartSuccess from '@/pages/AddCartSuccess';
+import ShopCart from '@/pages/ShopCart';
 
 export default [
   {
+    path: '/shopcart',
+    name: 'ShopCart',
+    component: ShopCart,
+    meta: { show: true },
+  },
+  {
+    path: '/AddCartSuccess/:num',
+    name: 'AddCartSuccess',
+    component: AddCartSuccess,
+    meta: { show: true },
+  },
+  {
     path: '/detail/:skuid',
+    name: 'detail',
     component: Detail,
-    meta: {show: true},
+    meta: { show: true },
   },
   {
     path: '/home',

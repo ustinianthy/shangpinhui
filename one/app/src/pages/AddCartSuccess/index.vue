@@ -9,12 +9,12 @@
           </div>
           <div class="right-info">
             <p class="title">{{ skuInfo.skuName }}</p>
-            <p class="attr">{{ skuInfo.skuDesc }} 数量:{{ $route.query.skuNum }}</p>
+            <p class="attr">{{ skuInfo.skuDesc }}数量：{{ this.$route.query.num }}</p>
           </div>
         </div>
         <div class="right-gocart">
           <router-link class="sui-btn btn-xlarge" :to="`/detail/${skuInfo.id}`">查看商品详情</router-link>
-          <router-link to="/shopcart">去购物车结算</router-link>
+          <router-link to="/shopcart">去购物车结算 > </router-link>
         </div>
       </div>
     </div>
@@ -24,6 +24,7 @@
 <script>
 export default {
   name: 'AddCartSuccess',
+  methods: {},
   computed: {
     skuInfo() {
       return JSON.parse(sessionStorage.getItem('SKUINFO'));
