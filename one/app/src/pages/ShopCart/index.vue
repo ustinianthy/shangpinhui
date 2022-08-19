@@ -13,7 +13,7 @@
       <div class="cart-body">
         <ul class="cart-list" v-for="c1 in infoList" :key="c1.id">
           <li class="cart-list-con1">
-            <input type="checkbox" name="chk_list" :checked="c1.isChecked == 1" />
+            <input type="checkbox" name="chk_list" :checked="c1.isChecked == 1" @change="updateChecked(c1, $event)" />
           </li>
           <li class="cart-list-con2">
             <img :src="c1.imgUrl" />
@@ -23,15 +23,15 @@
             <span class="price">{{ c1.skuPrice }}.00</span>
           </li>
           <li class="cart-list-con5">
-            <a href="javascript:void(0)" class="mins">-</a>
-            <input autocomplete="off" type="text" :value="c1.skuNum" minnum="1" class="itxt" />
-            <a href="javascript:void(0)" class="plus">+</a>
+            <a class="mins" @click="handler('minus', -1, c1)">-</a>
+            <input autocomplete="off" type="text" @change="handler('change', $event.target.value, c1)" :value="c1.skuNum" minnum="1" class="itxt" />
+            <a class="plus" @click="handler('add', 1, c1)">+</a>
           </li>
           <li class="cart-list-con6">
             <span class="sum">{{ c1.skuNum * c1.skuPrice }}</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a href="#none" class="sindelet" @click="delate(c1)">删除</a>
             <br />
             <a href="#none">移到收藏</a>
           </li>
@@ -40,7 +40,7 @@
     </div>
     <div class="cart-tool">
       <div class="select-all">
-        <input class="chooseAll" type="checkbox" :checked= 'isAllChecked' />
+        <input class="chooseAll" type="checkbox" :checked="isAllChecked && infoList.length > 0" @change="DeselectAll($event)" />
         <span>全选</span>
       </div>
       <div class="option">
@@ -52,7 +52,7 @@
         <div class="chosed">已选择 <span>0</span>件商品</div>
         <div class="sumprice">
           <em>总价（不含运费） ：</em>
-          <i class="summoney">{{isAllPrice}}</i>
+          <i class="summoney">{{ isAllPrice }}</i>
         </div>
         <div class="sumbtn">
           <a class="sum-btn" href="###" target="_blank">结算</a>
@@ -64,11 +64,56 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import throttle from 'lodash/throttle';
 export default {
   name: 'ShopCart',
   mounted() {
-    this.$store.dispatch('getShopList');
-    console.log(this.isAllPrice);
+    this.getDate();
+  },
+  methods: {
+    getDate() {
+      this.$store.dispatch('getShopList');
+    },
+    async updateChecked(c1, e) {
+      try {
+        let a = e.target.checked ? 1 : 0;
+        await this.$store.dispatch('getSwitchOver', { skuId: c1.skuId, isChecked: a });
+        this.getDate()
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+    // 删除一个产品
+    delate(c1) {
+      this.$store.dispatch('getDelateList', c1.skuId);
+      this.getDate();
+    },
+    // async DeselectAll(e) {
+
+    // },
+    handler: throttle(async function (type, sn, c1) {
+      switch (type) {
+        case 'minus':
+          sn = -1;
+          break;
+        case 'add':
+          sn = 1;
+          break;
+        case 'change':
+          if (isNaN(sn) || sn < 1) {
+            sn = 0;
+          } else {
+            sn = parseInt(sn) - c1.skuNum;
+          }
+          break;
+        default:
+          break;
+      }
+      try {
+        await this.$store.dispatch('getLogin', { skuId: c1.skuId, skuNum: sn });
+        this.getDate();
+      } catch (error) {}
+    }, 500),
   },
   computed: {
     ...mapGetters(['cartInfoList']),
@@ -82,11 +127,11 @@ export default {
       });
       return sum;
     },
-    isAllChecked(){
+    isAllChecked() {
       return this.infoList.every((item) => {
-        return item.isChecked == 1
-      })
-    }
+        return item.isChecked == 1;
+      });
+    },
   },
 };
 </script>
