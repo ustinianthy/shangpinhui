@@ -1,1 +1,1 @@
-console.log(isNaN(1));
+console.log(isNaN(3));
