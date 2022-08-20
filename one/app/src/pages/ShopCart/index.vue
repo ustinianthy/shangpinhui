@@ -44,7 +44,7 @@
         <span>全选</span>
       </div>
       <div class="option">
-        <a href="#none">删除选中的商品</a>
+        <a href="#none" @click="deleteAll">删除选中的商品</a>
         <a href="#none">移到我的关注</a>
         <a href="#none">清除下柜商品</a>
       </div>
@@ -78,7 +78,7 @@ export default {
       try {
         let a = e.target.checked ? 1 : 0;
         await this.$store.dispatch('getSwitchOver', { skuId: c1.skuId, isChecked: a });
-        this.getDate()
+        this.getDate();
       } catch (error) {
         alert(error.message);
       }
@@ -88,9 +88,23 @@ export default {
       this.$store.dispatch('getDelateList', c1.skuId);
       this.getDate();
     },
-    // async DeselectAll(e) {
-
-    // },
+    async deleteAll() {
+      try {
+        await this.$store.dispatch('deleteAllCart');
+        this.getDate();
+      } catch (error) {
+        alert(error);
+      }
+    },
+    // 全选功能
+    async DeselectAll(e){
+      try {
+        await this.$store.dispatch('last',e)
+        this.getDate();
+      } catch (error) {
+        alert(error)
+      }
+    },
     handler: throttle(async function (type, sn, c1) {
       switch (type) {
         case 'minus':

@@ -22,6 +22,24 @@ const actions = {
       Promise.reject(new Error('faile'));
     }
   },
+  async deleteAllCart({ dispatch, getters }) {
+    let PromiseAll = [];
+    await getters.cartInfoList.cartInfoList.forEach((item) => {
+      let a = item.isChecked == 1 ? dispatch('getDelateList', item.skuId) : '';
+      PromiseAll.push(a);
+    });
+    return Promise.all(PromiseAll);
+  },
+  async last({ dispatch, getters},e) {
+    let PromiseAll = [];
+    console.log(e.target.checked);
+    await getters.cartInfoList.cartInfoList.forEach((item) => {
+      console.log(item);
+      let a = e.target.checked == true ? dispatch('getSwitchOver', { skuId: item.skuId, isChecked: 1 }) : dispatch('getSwitchOver', { skuId: item.skuId, isChecked: 0 });
+      PromiseAll.push(a);
+    });
+    return Promise.all(PromiseAll);
+  },
 };
 const mutations = {
   GETSHOPLIST(state, shopList) {
