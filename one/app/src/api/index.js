@@ -10,3 +10,4 @@ export const reqLogin = (skuId, skuNum) => requests({ url: `/cart/addToCart/${sk
 export const reqShopList = () => requests({ url: `/cart/cartList`, method: 'GET' });
 export const reqDelateList = (skuId) => requests({ url: `/cart/deleteCart/${skuId}`, method: 'DELETE' });
 export const reqSwitchOver = (skuId, isChecked) => requests({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: 'GET' });
+export const reqVerification = (phone) => requests({ url: `/user/passport/sendCode/${phone}`, method: 'get' });

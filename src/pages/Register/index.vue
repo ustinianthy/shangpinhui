@@ -71,7 +71,6 @@
     methods: {
       async getCode(){
         try {
-          const { phone } = this;
           phone && (await this.$store.dispatch('getCode',this.phone))
           this.code = this.$store.state.user.code
         } catch (error) {
