@@ -6,7 +6,6 @@ const actions = {
       commit('GETVERIFICATION', result.data);
       return 'ok';
     } else {
-      console.log(Promise.reject(new Error('faile')));
       return Promise.reject(new Error('faile'));
     }
   },
@@ -14,7 +13,6 @@ const actions = {
     console.log(2);
     let result = await reqRegister(data);
     if (result.code == 200) {
-      commit('GETREGISTER', result.data);
       return 'ok';
     } else {
       return Promise.reject(new Error('faile'));

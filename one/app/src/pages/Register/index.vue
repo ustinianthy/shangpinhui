@@ -70,7 +70,7 @@ export default {
   methods: {
     async getCode() {
       try {
-        await this.$store.dispatch('getVerification', this.phone);
+       await this.$store.dispatch('getVerification', this.phone);
         this.code = this.$store.state.register.code;
       } catch (error) {
         console.log(error);
@@ -78,10 +78,11 @@ export default {
     },
     async userRegister() {
       try {
-        const {phone,password,code} = this
-        await this.$store.dispatch('getRegister', {phone,password,code});
+        const { phone, code, password, password1 } = this;
+        phone && code && password == password1 && (await this.$store.dispatch('getRegister', { phone, code, password }));
+        this.$router.push('/login');
       } catch (error) {
-        console.log(error);
+        alert(error.message);
       }
     },
   },
