@@ -11,3 +11,4 @@ export const reqShopList = () => requests({ url: `/cart/cartList`, method: 'GET'
 export const reqDelateList = (skuId) => requests({ url: `/cart/deleteCart/${skuId}`, method: 'DELETE' });
 export const reqSwitchOver = (skuId, isChecked) => requests({ url: `/cart/checkCart/${skuId}/${isChecked}`, method: 'GET' });
 export const reqVerification = (phone) => requests({ url: `/user/passport/sendCode/${phone}`, method: 'get' });
+export const reqRegister = (data) => requests({ url: `/api/user/passport/register`, data, method: 'post' });

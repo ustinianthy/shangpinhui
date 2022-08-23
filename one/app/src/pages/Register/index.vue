@@ -4,7 +4,7 @@
     <div class="register">
       <h3>
         注册新用户
-        <span class="go">我有账号，去 <a href="login.html" target="_blank">登陆</a> </span>
+        <span class="go">我有账号，去 <router-link to="/login" target="_blank">登陆</router-link> </span>
       </h3>
       <div class="content">
         <label>手机号:</label>
@@ -19,21 +19,21 @@
       </div>
       <div class="content">
         <label>登录密码:</label>
-        <input type="text" placeholder="请输入你的登录密码" />
+        <input type="password" placeholder="请输入你的登录密码" v-model="password" />
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="content">
         <label>确认密码:</label>
-        <input type="text" placeholder="请输入确认密码" />
+        <input type="password" placeholder="请输入确认密码" v-model="password1" />
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="controls">
-        <input name="m1" type="checkbox" />
+        <input name="m1" type="checkbox" :checked="agrss" />
         <span>同意协议并注册《尚品汇用户协议》</span>
         <span class="error-msg">错误提示信息</span>
       </div>
       <div class="btn">
-        <button>完成注册</button>
+        <button @click="userRegister">完成注册</button>
       </div>
     </div>
 
@@ -69,8 +69,20 @@ export default {
   },
   methods: {
     async getCode() {
-      await this.$store.dispatch('getVerification', this.phone);
-      this.code = this.$store.state.register.code
+      try {
+        await this.$store.dispatch('getVerification', this.phone);
+        this.code = this.$store.state.register.code;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async userRegister() {
+      try {
+        const {phone,password,code} = this
+        await this.$store.dispatch('getRegister', {phone,password,code});
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
